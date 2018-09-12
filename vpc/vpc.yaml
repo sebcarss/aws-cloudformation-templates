@@ -1,0 +1,14 @@
+---
+Description: Set up a basic VPC
+Resources: 
+  VPC: 
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: 200.80.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags: 
+        - 
+          Key: Name
+          Value: Seb VPC
