@@ -1,0 +1,12 @@
+---
+Description: Setup new S3 bucket with a new user who has read only access
+Resources: 
+  CloudFormationManualBucketSetup: 
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: sebcarss-s3-example-via-cf-manual
+      PublicAccessBlockConfiguration: 
+        BlockPublicAcls: true
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
