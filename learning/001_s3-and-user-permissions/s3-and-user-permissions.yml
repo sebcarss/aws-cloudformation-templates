@@ -1,12 +1,77 @@
 ---
 Description: Setup new S3 bucket with a new user who has read only access
 Resources: 
-  CloudFormationManualBucketSetup: 
+  SetupS3Bucket: 
     Type: AWS::S3::Bucket
     Properties: 
-      BucketName: sebcarss-s3-example-via-cf-manual
+      BucketName: "s3-RO-for-SebCarssCFUser"
       PublicAccessBlockConfiguration: 
         BlockPublicAcls: true
-        BlockPublicPolicy: false
+        BlockPublicPolicy: true
         IgnorePublicAcls: true
-        RestrictPublicBuckets: false
+        RestrictPublicBuckets: true
+  SetupPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Action: 
+              - "s3:ListBucketByTags"
+              - "s3:GetLifecycleConfiguration"
+              - "s3:GetBucketTagging"
+              - "s3:GetInventoryConfiguration"
+              - "s3:GetObjectVersionTagging"
+              - "s3:ListBucketVersions"
+              - "s3:GetBucketLogging"
+              - "s3:ListBucket"
+              - "s3:GetAccelerateConfiguration"
+              - "s3:GetBucketPolicy"
+              - "s3:GetObjectVersionTorrent"
+              - "s3:GetObjectAcl"
+              - "s3:GetEncryptionConfiguration"
+              - "s3:GetBucketRequestPayment"
+              - "s3:GetObjectVersionAcl"
+              - "s3:GetObjectTagging"
+              - "s3:GetMetricsConfiguration"
+              - "s3:GetBucketPublicAccessBlock"
+              - "s3:GetBucketPolicyStatus"
+              - "s3:ListBucketMultipartUploads"
+              - "s3:GetBucketWebsite"
+              - "s3:GetBucketVersioning"
+              - "s3:GetBucketAcl"
+              - "s3:GetBucketNotification"
+              - "s3:GetReplicationConfiguration"
+              - "s3:ListMultipartUploadParts"
+              - "s3:GetObject"
+              - "s3:GetObjectTorrent"
+              - "s3:GetBucketCORS"
+              - "s3:GetAnalyticsConfiguration"
+              - "s3:GetObjectVersionForReplication"
+              - "s3:GetBucketLocation"
+              - "s3:GetObjectVersion"
+            Resource: 
+              - "arn:aws:s3:::sebcarss-s3-example/*"
+              - "arn:aws:s3:::sebcarss-s3-example"
+          -
+            Effect: "Allow"
+            Action: 
+              - "s3:GetAccountPublicAccessBlock"
+              - "s3:ListAllMyBuckets"
+              - "s3:HeadBucket"
+            Resource: "*"
+      PolicyName: "ReadOnlyS3Access"
+  SetupGroup:
+    Type: AWS::IAM::Group
+    Properties: 
+      GroupName: "ReadOnlyAccessGroup"
+  SetupUser:
+    Type: AWS::IAM::User
+    Properties: 
+      LoginProfile: 
+        Password: v7wTQURC!IMZu1T
+        PasswordResetRequired: true
+      UserName: SebCarssCFStack
+      
