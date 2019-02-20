@@ -1,0 +1,28 @@
+## Create a policy
+aws iam create-policy --policy-name ReadOnlySebCarssExampleS3Bucket \
+--policy-document file://ReadOnlySebCarssExampleS3Bucket \
+--description "Grants read only access to the sebcarss-s3-example bucket"
+
+## Create a group
+aws iam create-group --group-name ReadOnlySebCarssExampleS3BucketGroup
+
+## Attach a policy to a group
+aws iam attach-group-policy --group-name ReadOnlySebCarssExampleS3BucketGroup --policy-arn arn:aws:iam::429262707412:policy/ReadOnlySebCarssExampleS3Bucket
+
+## Create user
+aws iam create-user --user-name SebCarssCLI
+
+## Add user to group
+aws iam add-user-to-group --user-name SebcarssCLI --group-name ReadOnlySebCarssExampleS3BucketGroup
+
+## Give access to the console for the user (create login profile)
+aws iam create-login-profile --user-name SebCarssCLI --password 8\!h2IoWrmQ7B\#2w --password-reset-required
+
+8!h2IoWrmQ7B#2w123
+
+arn:aws:s3:::sebcarss-s3-example
+
+## Update the policy for a group
+aws iam put-group-policy --group-name ReadOnlySebCarssExampleS3BucketGroup \
+--policy-document file://ReadOnlySebCarssExampleS3Bucket \
+--policy-name ReadOnlySebCarssExampleS3Bucket
