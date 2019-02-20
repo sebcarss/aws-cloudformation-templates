@@ -18,8 +18,8 @@ Your new stack will now be created based on the `Resources` specified in the YAM
 
 ## Syncing the CloudFormation scripts to AWS S3
 
-So that the tempaltes are easy to access via the console in AWS CloudFormation you can sync the contents of this repository up to the default S3 bucket that is created for CloudFormation templates by AWS by invoking this command from a terminal window from the root of the directory that this repository is cloned to:
+So that the templates are easy to access via the console in AWS CloudFormation you can sync the contents of this repository up to the default S3 bucket that is created for CloudFormation templates by AWS by invoking this command from a terminal window from the root of the directory that this repository is cloned to:
 
-`aws s3 sync . s3://cf-templates-17dbk1hubnapy-eu-west-1 --exclude "*.git/*" --exclude README.md`
+`aws s3 sync . s3://cf-templates-<unique-id>-<AZ> --exclude "*.git/*" --exclude README.md`
 
 You can then create this stack in the console by choosing the template source as `Amazon S3 URL` and specifying the URL of the object in the S3 bucket.
